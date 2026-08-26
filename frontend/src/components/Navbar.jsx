@@ -110,7 +110,7 @@ const Navbar = () => {
           hamburger — all in one row
       ===================================================== */}
 
-      <div className="mx-auto flex h-16 md:h-20 max-w-7xl items-center gap-2 sm:gap-4 px-3 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 md:h-20 max-w-7xl items-center gap-1 sm:gap-4 px-2 sm:px-6 lg:px-8">
 
         {/* =================================================
             LOGO
@@ -163,7 +163,7 @@ const Navbar = () => {
 
         <form
           onSubmit={handleSearch}
-          className="flex-1 min-w-0 max-w-[220px] sm:max-w-xs md:max-w-md mx-1 md:mx-4"
+          className="flex-1 min-w-0 max-w-[190px] sm:max-w-xs md:max-w-md mr-1 md:mx-4"
         >
           <div className="relative w-full">
             <Search
@@ -185,7 +185,7 @@ const Navbar = () => {
             RIGHT SIDE ACTIONS
         ================================================= */}
 
-        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+        <div className="flex items-center gap-0.5 sm:gap-2 shrink-0 ml-auto pr-0.5">
 
           {/* ---------------- Desktop-only extras ---------------- */}
 
@@ -222,7 +222,7 @@ const Navbar = () => {
 
           <Link
             to="/cart"
-            className="relative rounded-full p-2 text-gray-700 transition hover:bg-green-50 hover:text-green-600"
+            className="relative rounded-full p-1.5 sm:p-2 text-gray-700 transition hover:bg-green-50 hover:text-green-600"
           >
             <ShoppingCart size={22} />
 
@@ -233,24 +233,27 @@ const Navbar = () => {
             )}
           </Link>
 
-          {/* ---------------- Desktop profile / login ---------------- */}
+          {/* ---------------- Profile / login ----------------
+              Visible on ALL screen sizes now — sits between
+              Cart and the hamburger button on mobile too
+          ================================================= */}
 
-          <div className="hidden md:block">
+          <div className="block">
             {isAuthenticated ? (
               <div className="relative">
                 <button
                   type="button"
                   onClick={() => setProfileOpen((prev) => !prev)}
-                  className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-2 py-1.5 transition hover:bg-green-50"
+                  className="flex items-center gap-1.5 sm:gap-2 rounded-full border border-gray-200 bg-white px-1.5 py-1.5 sm:px-2 transition hover:bg-green-50"
                 >
                   {user?.profilePhoto ? (
                     <img
                       src={user.profilePhoto}
                       alt={user?.name || "User"}
-                      className="h-8 w-8 rounded-full object-cover"
+                      className="h-7 w-7 sm:h-8 sm:w-8 rounded-full object-cover"
                     />
                   ) : (
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 font-semibold text-green-700">
+                    <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-green-100 font-semibold text-green-700 text-sm">
                       {user?.name?.charAt(0)?.toUpperCase() || "U"}
                     </div>
                   )}
@@ -261,7 +264,7 @@ const Navbar = () => {
 
                   <ChevronDown
                     size={14}
-                    className={`text-gray-500 transition ${
+                    className={`hidden sm:block text-gray-500 transition ${
                       profileOpen ? "rotate-180" : ""
                     }`}
                   />
@@ -319,9 +322,10 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/login"
-                className="rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-700"
+                className="flex h-7 w-7 sm:h-auto sm:w-auto items-center justify-center rounded-full bg-green-600 text-white transition hover:bg-green-700 sm:px-4 sm:py-2 sm:text-sm sm:font-semibold"
               >
-                Login
+                <User size={16} className="sm:hidden" />
+                <span className="hidden sm:inline">Login</span>
               </Link>
             )}
           </div>
@@ -331,7 +335,7 @@ const Navbar = () => {
           <button
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className="rounded-lg p-1.5 text-gray-700 hover:bg-gray-100 md:hidden"
+            className="rounded-lg p-1.5 text-gray-700 hover:bg-gray-100 md:hidden mr-0.5"
             aria-label="Toggle menu"
             aria-expanded={mobileMenuOpen}
           >

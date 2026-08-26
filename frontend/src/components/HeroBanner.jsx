@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import storeBanner from "../assets/banners/store-banner.jpeg";
@@ -82,8 +82,15 @@ const HeroBanner = () => {
   const [current, setCurrent] = useState(0);
 
   // ===================================================
+  // SWIPE TRACKING REFS
+  // ===================================================
+
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  // ===================================================
   // AUTO SLIDE
-  // Every 5 seconds
+  // Every 3 seconds
   // ===================================================
 
   useEffect(() => {
@@ -126,6 +133,34 @@ const HeroBanner = () => {
     setCurrent(index);
   };
 
+  // ===================================================
+  // SWIPE HANDLERS
+  // ===================================================
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const distance = touchStartX.current - touchEndX.current;
+    const minSwipeDistance = 50; // pixels
+
+    if (distance > minSwipeDistance) {
+      // swiped left -> next slide
+      nextSlide();
+    } else if (distance < -minSwipeDistance) {
+      // swiped right -> previous slide
+      prevSlide();
+    }
+
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+  };
+
   const banner = banners[current];
 
   // ===================================================
@@ -137,9 +172,15 @@ const HeroBanner = () => {
 
       {/* =================================================
           BANNER CONTAINER
+          Swipe listeners attached here
       ================================================= */}
 
-      <div className="relative h-[300px] w-full sm:h-[390px] md:h-[470px] lg:h-[540px]">
+      <div
+        className="relative h-[300px] w-full touch-pan-y sm:h-[390px] md:h-[470px] lg:h-[540px]"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
 
         {/* =================================================
             BANNER IMAGE
@@ -153,6 +194,7 @@ const HeroBanner = () => {
           style={{
             objectPosition: banner.position,
           }}
+          draggable={false}
         />
 
         {/* =================================================
@@ -236,30 +278,10 @@ const HeroBanner = () => {
         </div>
 
         {/* =================================================
-            PREVIOUS BUTTON
+            PREV / NEXT ARROW BUTTONS — REMOVED
+            Swipe left/right on mobile, or use the dots below,
+            to change slides instead.
         ================================================= */}
-
-        <button
-          type="button"
-          onClick={prevSlide}
-          aria-label="Previous banner"
-          className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-white hover:text-gray-900 sm:left-5 sm:h-11 sm:w-11"
-        >
-          <ChevronLeft size={21} />
-        </button>
-
-        {/* =================================================
-            NEXT BUTTON
-        ================================================= */}
-
-        <button
-          type="button"
-          onClick={nextSlide}
-          aria-label="Next banner"
-          className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-white hover:text-gray-900 sm:right-5 sm:h-11 sm:w-11"
-        >
-          <ChevronRight size={21} />
-        </button>
 
         {/* =================================================
             DOT INDICATORS

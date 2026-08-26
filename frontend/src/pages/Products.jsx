@@ -176,16 +176,16 @@ const Products = () => {
   };
 
   return (
-    <main className="min-h-[calc(100vh-80px)] bg-gray-50 px-5 py-8 dark:bg-gray-900 sm:px-8 lg:px-12">
+    <main className="min-h-[calc(100vh-80px)] bg-gray-50 px-5 py-8 sm:px-8 lg:px-12">
       <div className="mx-auto max-w-7xl">
 
         {/* Header */}
         <div className="mb-6">
           <p className="text-sm font-semibold text-green-600">Shop</p>
-          <h1 className="mt-1 text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
+          <h1 className="mt-1 text-2xl font-bold text-gray-900 sm:text-3xl">
             {search ? `Results for "${search}"` : "All Products"}
           </h1>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-sm text-gray-500">
             {loading ? "Loading..." : `${products.length} products found`}
           </p>
         </div>
@@ -204,8 +204,8 @@ const Products = () => {
               onClick={() => toggleDropdown("category")}
               className={`flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-semibold transition ${
                 category
-                  ? "border-green-600 bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                  : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
+                  ? "border-green-600 bg-green-50 text-green-700"
+                  : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
               }`}
             >
               {selectedCategoryName}
@@ -218,14 +218,14 @@ const Products = () => {
             </button>
 
             {openDropdown === "category" && (
-              <div className="absolute left-0 top-full mt-2 w-56 overflow-hidden rounded-2xl border border-gray-100 bg-white p-2 shadow-xl dark:border-gray-700 dark:bg-gray-800">
+              <div className="absolute left-0 top-full mt-2 w-56 overflow-hidden rounded-2xl border border-gray-100 bg-white p-2 shadow-xl">
                 <button
                   type="button"
                   onClick={() => handleCategorySelect("")}
                   className={`block w-full rounded-xl px-3 py-2.5 text-left text-sm ${
                     !category
-                      ? "bg-green-50 font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                      : "text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                      ? "bg-green-50 font-semibold text-green-700"
+                      : "text-gray-600 hover:bg-gray-50"
                   }`}
                 >
                   All Categories
@@ -238,8 +238,8 @@ const Products = () => {
                     onClick={() => handleCategorySelect(cat._id)}
                     className={`block w-full rounded-xl px-3 py-2.5 text-left text-sm ${
                       category === cat._id
-                        ? "bg-green-50 font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                        : "text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                        ? "bg-green-50 font-semibold text-green-700"
+                        : "text-gray-600 hover:bg-gray-50"
                     }`}
                   >
                     {cat.name}
@@ -256,8 +256,8 @@ const Products = () => {
               onClick={() => toggleDropdown("price")}
               className={`flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-semibold transition ${
                 minPrice || maxPrice
-                  ? "border-green-600 bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                  : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
+                  ? "border-green-600 bg-green-50 text-green-700"
+                  : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
               }`}
             >
               {priceLabel}
@@ -270,8 +270,8 @@ const Products = () => {
             </button>
 
             {openDropdown === "price" && (
-              <div className="absolute left-0 top-full mt-2 w-64 rounded-2xl border border-gray-100 bg-white p-4 shadow-xl dark:border-gray-700 dark:bg-gray-800">
-                <p className="mb-3 text-sm font-bold text-gray-800 dark:text-gray-100">
+              <div className="absolute left-0 top-full mt-2 w-64 rounded-2xl border border-gray-100 bg-white p-4 shadow-xl">
+                <p className="mb-3 text-sm font-bold text-gray-800">
                   Price Range
                 </p>
 
@@ -287,7 +287,7 @@ const Products = () => {
                         min: e.target.value,
                       }))
                     }
-                    className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:border-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                    className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:border-green-500"
                   />
                   <span className="text-gray-400">–</span>
                   <input
@@ -301,7 +301,7 @@ const Products = () => {
                         max: e.target.value,
                       }))
                     }
-                    className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:border-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                    className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:border-green-500"
                   />
                 </div>
 
@@ -318,7 +318,7 @@ const Products = () => {
                     <button
                       type="button"
                       onClick={handleClearPrice}
-                      className="rounded-lg border border-gray-200 px-3 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                      className="rounded-lg border border-gray-200 px-3 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-50"
                     >
                       Clear
                     </button>
@@ -333,7 +333,7 @@ const Products = () => {
             <button
               type="button"
               onClick={() => toggleDropdown("sort")}
-              className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
+              className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50"
             >
               {sortLabel}
               <ChevronDown
@@ -345,7 +345,7 @@ const Products = () => {
             </button>
 
             {openDropdown === "sort" && (
-              <div className="absolute left-0 top-full mt-2 w-56 overflow-hidden rounded-2xl border border-gray-100 bg-white p-2 shadow-xl dark:border-gray-700 dark:bg-gray-800">
+              <div className="absolute left-0 top-full mt-2 w-56 overflow-hidden rounded-2xl border border-gray-100 bg-white p-2 shadow-xl">
                 {sortOptions.map((opt) => (
                   <button
                     key={opt.value}
@@ -353,8 +353,8 @@ const Products = () => {
                     onClick={() => handleSortSelect(opt.value)}
                     className={`block w-full rounded-xl px-3 py-2.5 text-left text-sm ${
                       sort === opt.value
-                        ? "bg-green-50 font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                        : "text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                        ? "bg-green-50 font-semibold text-green-700"
+                        : "text-gray-600 hover:bg-gray-50"
                     }`}
                   >
                     {opt.label}
@@ -369,7 +369,7 @@ const Products = () => {
             <button
               type="button"
               onClick={handleClearAll}
-              className="flex items-center gap-1 rounded-full px-3 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+              className="flex items-center gap-1 rounded-full px-3 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50"
             >
               <X size={14} />
               Clear All
@@ -380,7 +380,7 @@ const Products = () => {
         {/* ================= PRODUCTS GRID ================= */}
 
         {error && (
-          <div className="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600 dark:border-red-800 dark:bg-red-900/30 dark:text-red-400">
+          <div className="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
             {error}
           </div>
         )}
@@ -392,9 +392,9 @@ const Products = () => {
         )}
 
         {!loading && products.length === 0 && !error && (
-          <div className="flex flex-col items-center justify-center rounded-2xl bg-white py-20 text-center shadow-sm dark:bg-gray-800">
+          <div className="flex flex-col items-center justify-center rounded-2xl bg-white py-20 text-center shadow-sm">
             <PackageX size={40} className="text-gray-300" />
-            <p className="mt-3 text-sm font-medium text-gray-500 dark:text-gray-400">
+            <p className="mt-3 text-sm font-medium text-gray-500">
               No products found matching your filters.
             </p>
           </div>
@@ -406,9 +406,9 @@ const Products = () => {
               <Link
                 key={product._id}
                 to={`/products/${product._id}`}
-                className="group rounded-2xl bg-white p-3 shadow-sm transition hover:-translate-y-1 hover:shadow-md dark:bg-gray-800"
+                className="group rounded-2xl bg-white p-3 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
-                <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-50 dark:bg-gray-700">
+                <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-50">
                   {product.images?.[0] ? (
                     <img
                       src={product.images[0]}
@@ -428,22 +428,22 @@ const Products = () => {
                   )}
 
                   {product.stockQuantity === 0 && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-white/70 text-sm font-semibold text-gray-600 dark:bg-black/50 dark:text-gray-200">
+                    <div className="absolute inset-0 flex items-center justify-center bg-white/70 text-sm font-semibold text-gray-600">
                       Out of Stock
                     </div>
                   )}
                 </div>
 
-                <p className="mt-3 line-clamp-2 text-sm font-medium text-gray-800 dark:text-gray-100">
+                <p className="mt-3 line-clamp-2 text-sm font-medium text-gray-800">
                   {product.name}
                 </p>
 
-                <p className="text-xs text-gray-400 dark:text-gray-500">
+                <p className="text-xs text-gray-400">
                   {product.category?.name}
                 </p>
 
                 <div className="mt-2 flex items-center gap-2">
-                  <span className="font-bold text-gray-900 dark:text-white">
+                  <span className="font-bold text-gray-900">
                     ₹{product.offerPrice}
                   </span>
                   {product.offerPrice < product.actualPrice && (

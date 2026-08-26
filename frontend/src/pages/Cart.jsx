@@ -94,7 +94,7 @@ const Cart = () => {
 
   if (loading && !cart) {
     return (
-      <main className="flex min-h-[70vh] items-center justify-center dark:bg-gray-900">
+      <main className="flex min-h-[70vh] items-center justify-center bg-white">
         <Loader2 size={35} className="animate-spin text-green-600" />
       </main>
     );
@@ -106,12 +106,12 @@ const Cart = () => {
 
   if (items.length === 0) {
     return (
-      <main className="flex min-h-[70vh] flex-col items-center justify-center bg-gray-50 px-5 dark:bg-gray-900">
+      <main className="flex min-h-[70vh] flex-col items-center justify-center bg-gray-50 px-5">
         <ShoppingBag size={48} className="text-gray-300" />
-        <h2 className="mt-4 text-xl font-bold text-gray-800 dark:text-gray-100">
+        <h2 className="mt-4 text-xl font-bold text-gray-800">
           Your cart is empty
         </h2>
-        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+        <p className="mt-2 text-sm text-gray-500">
           Looks like you haven't added anything yet.
         </p>
         <Link
@@ -125,16 +125,16 @@ const Cart = () => {
   }
 
   return (
-    <main className="min-h-[calc(100vh-80px)] bg-gray-50 px-5 py-8 dark:bg-gray-900 sm:px-8 lg:px-12">
+    <main className="min-h-[calc(100vh-80px)] bg-gray-50 px-5 py-8 sm:px-8 lg:px-12">
       <div className="mx-auto max-w-6xl">
 
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-sm font-semibold text-green-600">Cart</p>
-            <h1 className="mt-1 text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
+            <h1 className="mt-1 text-2xl font-bold text-gray-900 sm:text-3xl">
               Shopping Cart
             </h1>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            <p className="mt-1 text-sm text-gray-500">
               {items.length} item{items.length !== 1 ? "s" : ""} in your cart
             </p>
           </div>
@@ -143,7 +143,7 @@ const Cart = () => {
             type="button"
             onClick={handleClearCart}
             disabled={clearing}
-            className="flex items-center gap-1.5 rounded-xl border border-red-200 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 disabled:opacity-50 dark:border-red-800 dark:hover:bg-red-900/20"
+            className="flex items-center gap-1.5 rounded-xl border border-red-200 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 disabled:opacity-50"
           >
             {clearing ? (
               <Loader2 size={14} className="animate-spin" />
@@ -171,11 +171,11 @@ const Cart = () => {
               return (
                 <div
                   key={productId}
-                  className="flex gap-4 rounded-2xl bg-white p-4 shadow-sm dark:bg-gray-800 sm:p-5"
+                  className="flex gap-4 rounded-2xl bg-white p-4 shadow-sm sm:p-5"
                 >
                   <Link
                     to={`/products/${productId}`}
-                    className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-50 dark:bg-gray-700 sm:h-24 sm:w-24"
+                    className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-50 sm:h-24 sm:w-24"
                   >
                     {images?.[0] ? (
                       <img
@@ -195,12 +195,12 @@ const Cart = () => {
                       <div>
                         <Link
                           to={`/products/${productId}`}
-                          className="text-sm font-semibold text-gray-800 hover:text-green-600 dark:text-gray-100 sm:text-base"
+                          className="text-sm font-semibold text-gray-800 hover:text-green-600 sm:text-base"
                         >
                           {name}
                         </Link>
 
-                        <p className="mt-1 text-sm font-bold text-gray-900 dark:text-white">
+                        <p className="mt-1 text-sm font-bold text-gray-900">
                           ₹{offerPrice}
                           {offerPrice < actualPrice && (
                             <span className="ml-2 text-xs font-normal text-gray-400 line-through">
@@ -226,7 +226,7 @@ const Cart = () => {
                         type="button"
                         onClick={() => handleRemove(productId)}
                         disabled={removingId === productId}
-                        className="rounded-lg p-2 text-gray-400 hover:bg-red-50 hover:text-red-500 disabled:opacity-50 dark:hover:bg-red-900/20"
+                        className="rounded-lg p-2 text-gray-400 hover:bg-red-50 hover:text-red-500 disabled:opacity-50"
                       >
                         {removingId === productId ? (
                           <Loader2 size={16} className="animate-spin" />
@@ -237,7 +237,7 @@ const Cart = () => {
                     </div>
 
                     <div className="mt-3 flex items-center justify-between">
-                      <div className="flex items-center rounded-xl border border-gray-200 dark:border-gray-600">
+                      <div className="flex items-center rounded-xl border border-gray-200">
                         <button
                           type="button"
                           onClick={() =>
@@ -248,12 +248,12 @@ const Cart = () => {
                             )
                           }
                           disabled={updatingId === productId}
-                          className="p-2 text-gray-600 hover:bg-gray-50 disabled:opacity-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                          className="p-2 text-gray-600 hover:bg-gray-50 disabled:opacity-50"
                         >
                           <Minus size={14} />
                         </button>
 
-                        <span className="w-8 text-center text-sm font-semibold text-gray-800 dark:text-gray-100">
+                        <span className="w-8 text-center text-sm font-semibold text-gray-800">
                           {updatingId === productId ? (
                             <Loader2 size={13} className="mx-auto animate-spin" />
                           ) : (
@@ -271,13 +271,13 @@ const Cart = () => {
                             )
                           }
                           disabled={updatingId === productId}
-                          className="p-2 text-gray-600 hover:bg-gray-50 disabled:opacity-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                          className="p-2 text-gray-600 hover:bg-gray-50 disabled:opacity-50"
                         >
                           <Plus size={14} />
                         </button>
                       </div>
 
-                      <p className="text-sm font-bold text-gray-900 dark:text-white">
+                      <p className="text-sm font-bold text-gray-900">
                         ₹{itemTotal.toLocaleString("en-IN")}
                       </p>
                     </div>
@@ -288,13 +288,13 @@ const Cart = () => {
           </div>
 
           {/* ================= ORDER SUMMARY ================= */}
-          <div className="h-fit rounded-2xl bg-white p-5 shadow-sm dark:bg-gray-800 sm:p-6">
-            <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+          <div className="h-fit rounded-2xl bg-white p-5 shadow-sm sm:p-6">
+            <h2 className="text-lg font-bold text-gray-900">
               Order Summary
             </h2>
 
             <div className="mt-4 space-y-3 text-sm">
-              <div className="flex justify-between text-gray-600 dark:text-gray-300">
+              <div className="flex justify-between text-gray-600">
                 <span>Subtotal</span>
                 <span>₹{subtotal.toLocaleString("en-IN")}</span>
               </div>
@@ -306,7 +306,7 @@ const Cart = () => {
                 </div>
               )}
 
-              <div className="flex justify-between text-gray-600 dark:text-gray-300">
+              <div className="flex justify-between text-gray-600">
                 <span>Delivery Fee</span>
                 <span>
                   {deliveryFee === 0 ? (
@@ -324,11 +324,11 @@ const Cart = () => {
               )}
             </div>
 
-            <div className="mt-4 flex justify-between border-t border-gray-100 pt-4 dark:border-gray-700">
-              <span className="font-bold text-gray-900 dark:text-white">
+            <div className="mt-4 flex justify-between border-t border-gray-100 pt-4">
+              <span className="font-bold text-gray-900">
                 Total
               </span>
-              <span className="text-lg font-bold text-gray-900 dark:text-white">
+              <span className="text-lg font-bold text-gray-900">
                 ₹{grandTotal.toLocaleString("en-IN")}
               </span>
             </div>

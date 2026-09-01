@@ -163,7 +163,7 @@ const Navbar = () => {
 
         <form
           onSubmit={handleSearch}
-          className="flex-1 min-w-0 max-w-[190px] sm:max-w-xs md:max-w-md mr-1 md:mx-4"
+          className="flex-1 min-w-0 sm:max-w-xs md:max-w-md mr-1 md:mx-4"
         >
           <div className="relative w-full">
             <Search
@@ -185,7 +185,7 @@ const Navbar = () => {
             RIGHT SIDE ACTIONS
         ================================================= */}
 
-        <div className="flex items-center gap-0.5 sm:gap-2 shrink-0 ml-auto pr-0.5">
+        <div className="flex items-center gap-0.5 sm:gap-2 shrink-0 pr-0.5">
 
           {/* ---------------- Desktop-only extras ---------------- */}
 

@@ -42,6 +42,12 @@ const createEmptyImages = () => [null, null, null, null];
 // COMPRESS IMAGE BEFORE UPLOAD
 // Resizes to max 1000px width/height, converts to JPEG
 // This makes uploads significantly faster
+//
+// NOTE: JPEG has no alpha channel. If the source image
+// (PNG/WEBP) has a transparent background, the canvas's
+// default transparent fill gets flattened to BLACK when
+// exported as JPEG. To prevent that, we paint a white
+// background on the canvas before drawing the image.
 // =====================================================
 
 const compressImage = (file) => {
@@ -70,6 +76,12 @@ const compressImage = (file) => {
       canvas.height = height;
 
       const ctx = canvas.getContext("2d");
+
+      // Fill white first so transparent PNG/WEBP images
+      // don't turn black when converted to JPEG.
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(0, 0, width, height);
+
       ctx.drawImage(img, 0, 0, width, height);
 
       canvas.toBlob(

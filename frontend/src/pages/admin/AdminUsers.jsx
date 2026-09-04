@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../api/axios";
 import {
   Search,
   Users,
@@ -10,18 +10,6 @@ import {
   UserPlus,
   X,
 } from "lucide-react";
-
-const API_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:4000";
-
-// ==========================================
-// AUTH HEADER HELPER
-// ==========================================
-
-const getAuthHeaders = () => {
-  const token = localStorage.getItem("token");
-  return token ? { Authorization: `Bearer ${token}` } : {};
-};
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -79,14 +67,7 @@ const AdminUsers = () => {
         params.status = status;
       }
 
-      const response = await axios.get(
-        `${API_URL}/api/admin/users`,
-        {
-          params,
-          headers: getAuthHeaders(),
-          withCredentials: true,
-        }
-      );
+      const response = await API.get("/admin/users", { params });
 
       if (response.data.success) {
         setUsers(response.data.users || []);
@@ -141,14 +122,10 @@ const AdminUsers = () => {
       setActionLoading(user._id);
       setError("");
 
-      const response = await axios.patch(
-        `${API_URL}/api/admin/users/${user._id}/status`,
+      const response = await API.patch(
+        `/admin/users/${user._id}/status`,
         {
           isActive: !user.isActive,
-        },
-        {
-          headers: getAuthHeaders(),
-          withCredentials: true,
         }
       );
 
@@ -212,14 +189,9 @@ const AdminUsers = () => {
     if (!email) return;
 
     try {
-      const response = await axios.get(
-        `${API_URL}/api/admin/users`,
-        {
-          params: { search: email },
-          headers: getAuthHeaders(),
-          withCredentials: true,
-        }
-      );
+      const response = await API.get("/admin/users", {
+        params: { search: email },
+      });
 
       const foundUsers = response.data?.users || [];
 
@@ -262,14 +234,9 @@ const AdminUsers = () => {
       setAddAdminSuccess("");
 
       // Step 1: तो email आधीच existing आहे का बघ
-      const searchResponse = await axios.get(
-        `${API_URL}/api/admin/users`,
-        {
-          params: { search: email },
-          headers: getAuthHeaders(),
-          withCredentials: true,
-        }
-      );
+      const searchResponse = await API.get("/admin/users", {
+        params: { search: email },
+      });
 
       const foundUsers = searchResponse.data?.users || [];
 
@@ -287,13 +254,9 @@ const AdminUsers = () => {
           return;
         }
 
-        const updateResponse = await axios.patch(
-          `${API_URL}/api/admin/users/${matchedUser._id}/role`,
-          { role: "admin" },
-          {
-            headers: getAuthHeaders(),
-            withCredentials: true,
-          }
+        const updateResponse = await API.patch(
+          `/admin/users/${matchedUser._id}/role`,
+          { role: "admin" }
         );
 
         if (updateResponse.data.success) {
@@ -326,10 +289,12 @@ const AdminUsers = () => {
       }
 
       // नवीन user register कर (public endpoint, token लागत नाही)
-      const registerResponse = await axios.post(
-        `${API_URL}/api/auth/register`,
-        { name, phone, email, password }
-      );
+      const registerResponse = await API.post("/auth/register", {
+        name,
+        phone,
+        email,
+        password,
+      });
 
       if (!registerResponse.data.success) {
         setAddAdminError(
@@ -341,13 +306,9 @@ const AdminUsers = () => {
       const newUserId = registerResponse.data.user.id;
 
       // नवीन user ला लगेच admin बनव
-      const promoteResponse = await axios.patch(
-        `${API_URL}/api/admin/users/${newUserId}/role`,
-        { role: "admin" },
-        {
-          headers: getAuthHeaders(),
-          withCredentials: true,
-        }
+      const promoteResponse = await API.patch(
+        `/admin/users/${newUserId}/role`,
+        { role: "admin" }
       );
 
       if (promoteResponse.data.success) {
